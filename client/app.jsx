@@ -1,6 +1,6 @@
 
 var data = [{
-  title: 'twitter',
+  title: 'twitte',
   url: 'https://twitter.com',
   upvotes: 4
 }, {
