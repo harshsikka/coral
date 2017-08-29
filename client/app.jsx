@@ -49,7 +49,7 @@ class App extends React.Component {
     var title = $('#titleValue').val();
     console.log(url);
     console.log(title)
-
+    var fetch = this.fetch.bind(this);
     $.ajax({
       type: "POST",
       url: 'http://localhost:3000/addPost',
@@ -61,6 +61,7 @@ class App extends React.Component {
       dataType: 'json',
       success: function (data) {
         console.log('succesfully posted data!');
+        fetch();
       },
     })
   }
@@ -81,6 +82,12 @@ class App extends React.Component {
         fetch();
       }
     })
+  }
+
+  componentDidMount() {
+    var self = this;
+    console.log(this.props);
+    this.fetch();
   }
 
   render() {

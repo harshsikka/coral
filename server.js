@@ -44,7 +44,7 @@ var addPosts = function(req,res) {
   var newPost = new Post({
     url: req.body.url,
     title: req.body.title,
-    upvotes: 3
+    upvotes: 1
   })
 
   newPost.save(function(error, newPost){
@@ -69,7 +69,7 @@ var upVote = function(req,res) {
       post.upvotes = req.body.upvotes + 1;
 
       console.log(post.upvotes);
-      
+
       post.save(function(err){
         if (err) {
           console.log(err);
