@@ -17,23 +17,63 @@ var data = [{
   upvotes: 0
 }];
 
-var App = () => {
-  return(
-    <div>
-    {data.map( post =>
-      <Post postData={post} />
-    )}
-    </div>
+// var App = () => {
+//   return(
+//     <div>
+//     {data.map( post =>
+//       <Post postData={post} />
+//     )}
+//     </div>
     
-  );
-};
+//   );
+// };
+
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: data
+    }
+  }
+
+  onClick() {
+    var stateSet = this.setState.bind(this);
+    $.ajax({
+      url: 'http://localhost:3000/get',
+      type: 'GET',
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function (data) {
+        console.log('Succesfully Fetched Data' + JSON.stringify(data));
+        stateSet({
+          data: data
+        })
+      }
+
+    })
+  }
+
+  render() {
+    return (
+      <div>
+      {this.state.data.map( post =>
+        <Post postData={post} onClick={this.onClick.bind(this)}/>
+      )}
+      </div>
+      
+    );
+  }
+
+}
 
 var Post = (props) => {
   return(
     <div>
-      <span>
+      <a href='#' onClick={function(){props.onClick()}}>
         {props.postData.upvotes}
-      </span>
+      </a>
       <span>
       
       <a href={props.postData.url}> {props.postData.title} </a>
