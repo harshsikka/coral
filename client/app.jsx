@@ -43,14 +43,41 @@ class App extends React.Component {
     })
   }
 
+  post() {
+    // take values
+    var url = $('#urlValue').val();
+    var title = $('#titleValue').val();
+    console.log(url);
+    console.log(title)
+
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:3000/addPost',
+      data: JSON.stringify({
+        url: url,
+        title: title
+      }),
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function (data) {
+        console.log('succesfully posted data!');
+      },
+    })
+  }
+
   render() {
     return (
       <div>
-      <div>
-        <h2> Coral</h2>
-        <h3> learn anything</h3>
-      <span><button onClick={this.fetch.bind(this)}> Refresh Posts </button></span>
-      </div>
+        <div>
+          <h2> Coral</h2>
+          <h3> learn anything</h3>
+          <div>
+            <input  id="urlValue" type="text" defaultValue="Link"/>
+          </div>
+          <input  id="titleValue" type="text" defaultValue="Title"/>
+          <button onClick={this.post.bind(this)}>Post Link!</button>
+        <div><button onClick={this.fetch.bind(this)}> Refresh Posts </button></div>
+        </div>
       <div>
 
       {this.state.data.map( post =>
@@ -71,9 +98,9 @@ var Post = (props) => {
       <a href='' >
         {props.postData.upvotes}
       </a>
+
       <span>
-      
-      <a href={props.postData.url} color='black'> {props.postData.title} </a>
+        <a href={props.postData.url} color='black'> {props.postData.title} </a>
       </span>
     </div>
   );

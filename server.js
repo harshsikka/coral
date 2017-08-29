@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('./db').mongoose;
 var Post = require('./db').PostModel;
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -11,6 +12,7 @@ app.listen(3000);
 console.log('server is listening at ' + port);
 
 app.use(express.static(__dirname));
+app.use(bodyParser.json())
 
 // to test populating the database
 // var google = new Post({url:'https://www.google.com/', title: 'Where you can search anything', upvotes: 9});
@@ -37,16 +39,18 @@ var getPosts = function(req,res) {
 }
 
 var addPosts = function(req,res) {
+  console.log('post recieved');
+  
   var newPost = new Post({
     url: req.body.url,
     title: req.body.title,
-    upvotes: 1
+    upvotes: 3
   })
 
   newPost.save(function(error, newPost){
     if (error) {
       console.log(error);
-      res.send(404);
+      res.send('sorry');
 
     } else {
       res.send(200, newPost);
@@ -57,6 +61,5 @@ var addPosts = function(req,res) {
 
 
 
-
+app.post('/addPost', addPosts);
 app.get('/get', getPosts);
-app.get('/post', addPosts);
