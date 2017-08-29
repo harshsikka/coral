@@ -37,8 +37,26 @@ var getPosts = function(req,res) {
 }
 
 var addPosts = function(req,res) {
+  var newPost = new Post({
+    url: req.body.url,
+    title: req.body.title,
+    upvotes: 1
+  })
 
+  newPost.save(function(error, newPost){
+    if (error) {
+      console.log(error);
+      res.send(404);
+
+    } else {
+      res.send(200, newPost);
+    }
+  });
 }
+
+
+
+
 
 app.get('/get', getPosts);
 app.get('/post', addPosts);

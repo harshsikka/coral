@@ -1,21 +1,4 @@
 
-var data = [{
-  title: 'twitte',
-  url: 'https://twitter.com',
-  upvotes: 4
-}, {
-  title: 'google',
-  url: 'https://www.google.com/',
-  upvotes: 7
-}, {
-  title: 'facebook',
-  url: 'https://www.facebook.com/',
-  upvotes: 2
-}, {
-  title: 'wikipedia',
-  url: 'https://www.wikipedia.org/',
-  upvotes: 0
-}];
 
 // var App = () => {
 //   return(
@@ -34,7 +17,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: data
+      data: [],
     }
   }
 
@@ -64,7 +47,9 @@ class App extends React.Component {
     return (
       <div>
       <div>
-      <span><button onClick={this.fetch.bind(this)}> Refresh </button></span>
+        <h2> Coral</h2>
+        <h3> learn anything</h3>
+      <span><button onClick={this.fetch.bind(this)}> Refresh Posts </button></span>
       </div>
       <div>
 
@@ -83,12 +68,12 @@ class App extends React.Component {
 var Post = (props) => {
   return(
     <div>
-      <a href='#' >
+      <a href='' >
         {props.postData.upvotes}
       </a>
       <span>
       
-      <a href={props.postData.url}> {props.postData.title} </a>
+      <a href={props.postData.url} color='black'> {props.postData.title} </a>
       </span>
     </div>
   );
