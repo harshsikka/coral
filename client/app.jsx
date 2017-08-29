@@ -24,7 +24,7 @@ class App extends React.Component {
   fetch() {
     var stateSet = this.setState.bind(this);
     $.ajax({
-      url: 'http://localhost:3000/get',
+      url: 'https://arcane-scrubland-93017.herokuapp.com/get',
       type: 'GET',
       dataType: 'json',
       contentType: 'application/json',
@@ -52,7 +52,7 @@ class App extends React.Component {
 
     $.ajax({
       type: "POST",
-      url: 'http://localhost:3000/addPost',
+      url: 'https://arcane-scrubland-93017.herokuapp.com/addPost',
       data: JSON.stringify({
         url: url,
         title: title
