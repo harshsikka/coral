@@ -93,7 +93,7 @@ class App extends React.Component {
             <input  id="urlValue" type="text" defaultValue="Link"/>
           </div>
           <input  id="titleValue" type="text" defaultValue="Title"/>
-          <button onClick={this.post.bind(this)}>Post Link!</button>
+          <button  onClick={this.post.bind(this)}>Post Link!</button>
         <div><button onClick={this.fetch.bind(this)}> Refresh Posts </button></div>
         </div>
       <div>
