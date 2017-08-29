@@ -12,6 +12,15 @@ console.log('server is listening at ' + port);
 
 app.use(express.static(__dirname));
 
+// to test populating the database
+// var google = new Post({url:'https://www.google.com/', title: 'Where you can search anything', upvotes: 9});
+
+// google.save(function(error){
+//   if(error) {
+//     console.log(error);
+//   }
+// });
+
 // database utilities
 
 var getPosts = function(req,res) {
@@ -27,4 +36,9 @@ var getPosts = function(req,res) {
   })
 }
 
+var addPosts = function(req,res) {
+
+}
+
 app.get('/get', getPosts);
+app.get('/post', addPosts);

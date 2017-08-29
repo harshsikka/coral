@@ -38,7 +38,7 @@ class App extends React.Component {
     }
   }
 
-  onClick() {
+  fetch() {
     var stateSet = this.setState.bind(this);
     $.ajax({
       url: 'http://localhost:3000/get',
@@ -47,6 +47,11 @@ class App extends React.Component {
       contentType: 'application/json',
       success: function (data) {
         console.log('Succesfully Fetched Data' + JSON.stringify(data));
+
+        data.sort(function(a,b) {
+          return b.upvotes - a.upvotes;
+        }); //sort the posts
+
         stateSet({
           data: data
         })
@@ -58,9 +63,16 @@ class App extends React.Component {
   render() {
     return (
       <div>
+      <div>
+      <span><button onClick={this.fetch.bind(this)}> Refresh </button></span>
+      </div>
+      <div>
+
       {this.state.data.map( post =>
-        <Post postData={post} onClick={this.onClick.bind(this)}/>
+        <Post postData={post} />
       )}
+      
+      </div>
       </div>
       
     );
@@ -71,26 +83,12 @@ class App extends React.Component {
 var Post = (props) => {
   return(
     <div>
-      <a href='#' onClick={function(){props.onClick()}}>
+      <a href='#' >
         {props.postData.upvotes}
       </a>
       <span>
       
       <a href={props.postData.url}> {props.postData.title} </a>
-      </span>
-    </div>
-  );
-};
-
-var Testpost = () => {
-  return(
-    <div>
-      <span>
-        4
-      </span>
-      <span>
-      
-      <a href='www.google.com'> a great learning guide </a>
       </span>
     </div>
   );
