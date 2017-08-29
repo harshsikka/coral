@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 
-process.env.NODE_ENV = 'production';
+
 app.listen(process.env.PORT || 3000)
 
 console.log('server is listening at ' + process.env.PORT || 3000);
