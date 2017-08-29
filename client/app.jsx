@@ -24,7 +24,7 @@ class App extends React.Component {
   fetch() {
     var stateSet = this.setState.bind(this);
     $.ajax({
-      url: 'https://arcane-scrubland-93017.herokuapp.com/get',
+      url: 'http://localhost:3000/get',
       type: 'GET',
       dataType: 'json',
       contentType: 'application/json',
@@ -52,7 +52,7 @@ class App extends React.Component {
 
     $.ajax({
       type: "POST",
-      url: 'https://arcane-scrubland-93017.herokuapp.com/addPost',
+      url: 'http://localhost:3000/addPost',
       data: JSON.stringify({
         url: url,
         title: title
@@ -62,6 +62,24 @@ class App extends React.Component {
       success: function (data) {
         console.log('succesfully posted data!');
       },
+    })
+  }
+
+  upvote(upvotes, title, sourceUrl){
+    var fetch = this.fetch.bind(this);
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:3000/upvote',
+      data: JSON.stringify({
+        url: sourceUrl,
+        title: title,
+        upvotes: upvotes,
+      }),
+      contentType: 'application/json',
+      success: function () {
+        console.log('succesfully posted data!');
+        fetch();
+      }
     })
   }
 
@@ -81,7 +99,7 @@ class App extends React.Component {
       <div>
 
       {this.state.data.map( post =>
-        <Post postData={post} />
+        <Post postData={post} upVote={this.upvote.bind(this)} />
       )}
       
       </div>
@@ -93,14 +111,16 @@ class App extends React.Component {
 }
 
 var Post = (props) => {
+  // to save post data, maybe save state?
+  // or pass down function that takes title, url and upvotes
   return(
     <div>
-      <a href='' >
+      <a href='#' onClick={function(){props.upVote(props.postData.upvotes, props.postData.title, props.postData.url)}}>
         {props.postData.upvotes}
       </a>
 
       <span>
-        <a href={props.postData.url} color='black'> {props.postData.title} </a>
+        <a href={props.postData.url} id={props.postData.title} color='black'> {props.postData.title} </a>
       </span>
     </div>
   );

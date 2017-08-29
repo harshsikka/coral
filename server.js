@@ -7,9 +7,9 @@ var app = express();
 
 
 process.env.NODE_ENV = 'production';
-app.listen(process.env.PORT || 3000)
+app.listen(3000)
 
-console.log('server is listening at ' + process.env.PORT || 3000);
+console.log('server is listening at ' + 3000);
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json())
@@ -58,8 +58,32 @@ var addPosts = function(req,res) {
   });
 }
 
+var upVote = function(req,res) {
+  Post.findOne({
+    url: req.body.url,
+    title: req.body.title,
+  }, function(err, post) {
+
+      console.log('upvoted');
+
+      post.upvotes = req.body.upvotes + 1;
+
+      console.log(post.upvotes);
+      
+      post.save(function(err){
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(200);
+        }
+      })
+    
+  })
+}
+
 
 
 
 app.post('/addPost', addPosts);
 app.get('/get', getPosts);
+app.post('/upvote', upVote);
