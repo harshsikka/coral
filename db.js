@@ -19,11 +19,13 @@ var postSchema = new Schema({
 
 var Post = mongoose.model('Post', postSchema);
 
-var google = new Post({url:'https://www.google.com/', title: 'Where you can search anything', upvotes: 3});
+// var google = new Post({url:'https://www.google.com/', title: 'Where you can search anything', upvotes: 3});
 
-google.save(function(error){
-  if(error) {
-    console.log(error);
-  }
-});
+// google.save(function(error){
+//   if(error) {
+//     console.log(error);
+//   }
+// });
 
+module.exports.PostModel = Post;
+module.exports.mongoose = mongoose;
