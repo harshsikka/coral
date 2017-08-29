@@ -5,11 +5,11 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-var port = 3000;
 
-app.listen(3000);
 
-console.log('server is listening at ' + port);
+app.listen(process.env.PORT || 3000)
+
+console.log('server is listening at ' + process.env.PORT || 3000);
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json())
